@@ -1,24 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Elementos del DOM
-    const cells = document.querySelectorAll('.celda');
-    const messageElement = document.querySelector('.estado-juego');
-    const resetButton = document.querySelector('.boton');
-    const resetScoreButton = document.querySelector('.boton-secundario');
-    const turnIndicator = document.querySelector('.jugador-actual');
-    const playerXScore = document.getElementById('puntuacionX');
-    const playerOScore = document.getElementById('puntuacionO');
-    const tiesScore = document.getElementById('puntuacionEmpates');
-    const xHistoryList = document.getElementById('x-history');
-    const oHistoryList = document.getElementById('o-history');
+    const celdas = document.querySelectorAll('.celda');
+    const mensajeElemento = document.querySelector('.estado-juego');
+    const reiniciarboton = document.querySelector('.boton');
+    const resetearjuego = document.querySelector('.boton-secundario');
+    const turnoIndicador = document.querySelector('.jugador-actual');
+    const puntuacionX = document.getElementById('puntuacionX');
+    const puntuacionO = document.getElementById('puntuacionO');
+    const puntuacionempate = document.getElementById('puntuacionEmpates');
+    const historialX = document.getElementById('x-history');
+    const historialO = document.getElementById('o-history');
     
     // Estado del juego
-    let board = ['', '', '', '', '', '', '', '', ''];
-    let currentPlayer = 'X';
-    let gameActive = true;
-    let scores = { X: 0, O: 0, ties: 0 };
-    let gameHistory = { X: [], O: [] };
-    let roundNumber = 1;
-    let lastLoser = null;
+    let vacio = ['', '', '', '', '', '', '', '', ''];
+    let jugadorinicial = 'X';
+    let activarJuego = true;
+    let listado = { X: 0, O: 0, ties: 0 };
+    let historialjuego = { X: [], O: [] };
+    let numeroronda = 1;
+    let perdedor = null;
     
     // Combinaciones ganadoras
     const winningConditions = [
@@ -28,56 +28,56 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     
     // Inicializar el juego
-    init();
+    iniciar();
     
-    function init() {
+    function iniciar() {
         // Determinar el jugador inicial
-        if (lastLoser) {
-            currentPlayer = lastLoser;
+        if (perdedor) {
+            jugadorinicial = perdedor;
         } else {
-            currentPlayer = 'X'; // Por defecto empieza X en la primera partida
+            jugadorinicial = 'X'; // Por defecto empieza X en la primera partida
         }
         
         // Reiniciar el tablero
-        board = ['', '', '', '', '', '', '', '', ''];
-        gameActive = true;
+        vacio = ['', '', '', '', '', '', '', '', ''];
+        activarJuego = true;
         
         // Event listeners para las celdas
-        cells.forEach((cell, index) => {
-            cell.addEventListener('click', () => handleCellClick(index));
+        celdas.forEach((cell, index) => {
+            cell.addEventListener('click', () => verificarcelda(index));
             cell.textContent = '';
             cell.classList.remove('x', 'o', 'winning-cell');
         });
         
         // Event listeners para los botones
-        resetButton.addEventListener('click', resetGame);
-        resetScoreButton.addEventListener('click', resetScore);
+        reiniciarboton.addEventListener('click', reiniciarjuego);
+        resetearjuego.addEventListener('click', reiniciar);
         
         // Actualizar la interfaz
-        updateTurnIndicator();
-        updateScoreDisplay();
-        clearMessage();
+     atualizarturno();
+        actualizardisplay();
+        mensaje();
     }
     
-    function handleCellClick(index) {
+    function verificarcelda(index) {
         // Si la celda ya está ocupada o el juego no está activo, no hacer nada
-        if (board[index] !== '' || !gameActive) {
+        if (vacio[index] !== '' || !activarJuego) {
             return;
         }
         
         // Actualizar el tablero y la interfaz
-        board[index] = currentPlayer;
-        updateCell(index);
+        vacio[index] = jugadorinicial;
+        actualizarcelda(index);
         
         // Verificar si hay un ganador o empate
-        checkResult();
+        verResultado();
     }
     
-    function updateCell(index) {
-        const cell = cells[index];
+    function actualizarcelda(index) {
+        const cell = celdas[index];
         // Añadir la marca del jugador
-        cell.textContent = currentPlayer;
-        cell.classList.add(currentPlayer.toLowerCase());
+        cell.textContent = jugadorinicial;
+        cell.classList.add(jugadorinicial.toLowerCase());
         
         // Agregar animación
         cell.style.animation = 'fadeIn 0.5s';
@@ -86,142 +86,142 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     }
     
-    function checkResult() {
+    function verResultado() {
         let roundWon = false;
         
         // Verificar todas las combinaciones ganadoras
         for (let i = 0; i < winningConditions.length; i++) {
             const [a, b, c] = winningConditions[i];
             
-            if (board[a] === '' || board[b] === '' || board[c] === '') {
+            if (vacio[a] === '' || vacio[b] === '' || vacio[c] === '') {
                 continue;
             }
             
-            if (board[a] === board[b] && board[b] === board[c]) {
+            if (vacio[a] === vacio[b] && vacio[b] === vacio[c]) {
                 roundWon = true;
                 
                 // Resaltar las celdas ganadoras
-                cells[a].classList.add('winning-cell');
-                cells[b].classList.add('winning-cell');
-                cells[c].classList.add('winning-cell');
+                celdas[a].classList.add('winning-cell');
+                celdas[b].classList.add('winning-cell');
+                celdas[c].classList.add('winning-cell');
                 break;
             }
         }
         
         // Si hay un ganador
         if (roundWon) {
-            endGame(false);
+            finjuego(false);
             return;
         }
         
         // Si es un empate
-        if (!board.includes('')) {
-            endGame(true);
+        if (!vacio.includes('')) {
+            finjuego(true);
             return;
         }
         
         // Cambiar de jugador
-        changePlayer();
+        turnojugador();
     }
     
-    function endGame(isDraw) {
-        gameActive = false;
+    function finjuego(isDraw) {
+        activarJuego = false;
         
         if (isDraw) {
-            showMessage('¡Empate!', 'empate');
-            scores.ties++;
+            mensajes('¡Empate!', 'empate');
+            listado.ties++;
             // En empate, el último perdedor sigue comenzando
         } else {
-            showMessage(`¡Jugador ${currentPlayer} gana!`, 'ganador');
+            mensajes(`¡Jugador ${jugadorinicial} gana!`, 'ganador');
             // Actualizar el marcador
-            scores[currentPlayer]++;
+            listado[jugadorinicial]++;
             
             // Registrar en el historial
-            addToHistory(currentPlayer);
+            agregarhistorial(jugadorinicial);
             
             // El perdedor comienza la próxima partida
-            lastLoser = currentPlayer === 'X' ? 'O' : 'X';
+            perdedor = jugadorinicial === 'X' ? 'O' : 'X';
         }
         
-        updateScoreDisplay();
+        actualizardisplay();
     }
     
-    function addToHistory(winner) {
+    function agregarhistorial(winner) {
         const now = new Date();
         const timeString = now.toLocaleTimeString();
         const dateString = now.toLocaleDateString();
         
         const historyItem = {
-            round: roundNumber,
+            round: numeroronda,
             winner: winner,
             timestamp: `${dateString} ${timeString}`
         };
         
-        gameHistory[winner].push(historyItem);
-        updateHistoryDisplay();
-        roundNumber++;
+        historialjuego[winner].push(historyItem);
+        actualizarhistorial();
+        numeroronda++;
     }
     
-    function updateHistoryDisplay() {
+    function actualizarhistorial() {
         // Limpiar listas
-        xHistoryList.innerHTML = '';
-        oHistoryList.innerHTML = '';
+        historialX.innerHTML = '';
+        historialO.innerHTML = '';
         
         // Llenar historial de X (orden descendente)
-        gameHistory.X.slice().reverse().forEach(item => {
+        historialjuego.X.slice().reverse().forEach(item => {
             const li = document.createElement('li');
             li.innerHTML = `<span>Ronda ${item.round}</span><span>${item.timestamp}</span>`;
-            xHistoryList.appendChild(li);
+            historialX.appendChild(li);
         });
         
         // Llenar historial de O (orden descendente)
-        gameHistory.O.slice().reverse().forEach(item => {
+        historialjuego.O.slice().reverse().forEach(item => {
             const li = document.createElement('li');
             li.innerHTML = `<span>Ronda ${item.round}</span><span>${item.timestamp}</span>`;
-            oHistoryList.appendChild(li);
+            historialO.appendChild(li);
         });
     }
     
-    function changePlayer() {
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        updateTurnIndicator();
+    function turnojugador() {
+        jugadorinicial = jugadorinicial === 'X' ? 'O' : 'X';
+     atualizarturno();
     }
     
-    function updateTurnIndicator() {
-        turnIndicator.textContent = `Turno: Jugador ${currentPlayer}`;
-        turnIndicator.style.backgroundColor = currentPlayer === 'X' ? '#dc3545' : '#007bff';
+    function atualizarturno() {
+        turnoIndicador.textContent = `Turno: Jugador ${jugadorinicial}`;
+        turnoIndicador.style.backgroundColor = jugadorinicial === 'X' ? '#dc3545' : '#007bff';
     }
     
-    function updateScoreDisplay() {
-        playerXScore.textContent = scores.X;
-        playerOScore.textContent = scores.O;
-        tiesScore.textContent = scores.ties;
+    function actualizardisplay() {
+        puntuacionX.textContent = listado.X;
+        puntuacionO.textContent = listado.O;
+        puntuacionempate.textContent = listado.ties;
     }
     
-    function showMessage(msg, type) {
-        messageElement.textContent = msg;
-        messageElement.className = 'estado-juego';
-        messageElement.classList.add(type);
+    function mensajes(msg, type) {
+        mensajeElemento.textContent = msg;
+        mensajeElemento.className = 'estado-juego';
+        mensajeElemento.classList.add(type);
     }
     
-    function clearMessage() {
-        messageElement.textContent = '';
-        messageElement.className = 'estado-juego';
+    function mensaje() {
+        mensajeElemento.textContent = '';
+        mensajeElemento.className = 'estado-juego';
     }
     
-    function resetGame() {
+    function reiniciarjuego() {
         // Reiniciar el estado del juego
-        init();
+        iniciar();
     }
     
-    function resetScore() {
+    function reiniciar() {
         // Reiniciar todos los marcadores
-        scores = { X: 0, O: 0, ties: 0 };
-        gameHistory = { X: [], O: [] };
-        roundNumber = 1;
-        lastLoser = null;
-        updateScoreDisplay();
-        updateHistoryDisplay();
-        resetGame();
+        listado = { X: 0, O: 0, ties: 0 };
+        historialjuego = { X: [], O: [] };
+        numeroronda = 1;
+        perdedor = null;
+        actualizardisplay();
+        actualizarhistorial();
+        reiniciarjuego();
     }
 });
