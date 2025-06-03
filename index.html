@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de "X y 0"</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="contenedor">
+        <div class="contenedor-juego">
+            
+            <h1 class="titulo-juego">"X y 0"</h1>
+            
+            <div class="jugador-actual">
+                Turno: Jugador X
+            </div>
+
+            <div class="seccion-puntuacion">
+                <div class="caja-puntuacion">
+                    <div class="titulo-puntuacion">Jugador X</div>
+                    <div class="numero-puntuacion" id="puntuacionX">0</div>
+                    <div class="etiqueta-puntuacion">victorias</div>
+                </div>
+                <div class="caja-puntuacion">
+                    <div class="titulo-puntuacion">Jugador O</div>
+                    <div class="numero-puntuacion" id="puntuacionO">0</div>
+                    <div class="etiqueta-puntuacion">victorias</div>
+                </div>
+                <div class="caja-puntuacion">
+                    <div class="titulo-puntuacion">Empates</div>
+                    <div class="numero-puntuacion" id="puntuacionEmpates">0</div>
+                    <div class="etiqueta-puntuacion">partidas</div>
+                </div>
+            </div>
+
+            <div class="contenedor-tablero">
+                <div class="tablero">
+                    <button class="celda c1" id="c1"></button>
+                    <button class="celda c2" id="c2"></button>
+                    <button class="celda c3" id="c3"></button>
+                    <button class="celda c4" id="c4"></button>
+                    <button class="celda c5" id="c5"></button>
+                    <button class="celda c6" id="c6"></button>
+                    <button class="celda c7" id="c7"></button>
+                    <button class="celda c8" id="c8"></button>
+                    <button class="celda c9" id="c9"></button>
+                </div>
+            </div>
+
+            <div class="estado-juego">
+                <!-- El estado del juego aparecerá aquí -->
+            </div>
+
+            <div class="controles">
+                <button class="boton">Nueva Partida</button>
+                <button class="boton boton-secundario">Reiniciar Marcador</button>
+            </div>
+            
+        </div>
+    </div>
+    
+</body>
+</html>

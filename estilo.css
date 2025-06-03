@@ -1,0 +1,175 @@
+
+/* Estilos generales */
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .contenedor {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .contenedor-juego {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      text-align: center;
+    }
+
+    .titulo-juego {
+      color: #007bff;
+      font-size: 36px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .jugador-actual {
+      background-color: #007bff;
+      color: white;
+      border-radius: 20px;
+      padding: 10px 20px;
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+
+    .seccion-puntuacion {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .caja-puntuacion {
+      background-color: #f8f9fa;
+      border: 2px solid #dee2e6;
+      border-radius: 8px;
+      padding: 15px;
+      flex: 1;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .titulo-puntuacion {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .numero-puntuacion {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .etiqueta-puntuacion {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .contenedor-tablero {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .tablero {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      width: 300px;
+      background-color: #333;
+      padding: 5px;
+      border-radius: 10px;
+    }
+
+    .celda {
+      width: 100%;
+      height: 90px;
+      background-color: white;
+      border: none;
+      font-size: 36px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .celda:hover {
+      background-color: #f0f0f0;
+    }
+
+    .celda.x {
+      color: #dc3545;
+    }
+
+    .celda.o {
+      color: #007bff;
+    }
+
+    .estado-juego {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      min-height: 30px;
+    }
+
+    .ganador {
+      color: #28a745;
+    }
+
+    .empate {
+      color: #ffc107;
+    }
+
+    .controles {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .boton {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .boton:hover {
+      background-color: #0056b3;
+    }
+
+    .boton:active {
+      background-color: #004085;
+    }
+
+    .boton-secundario {
+      background-color: #6c757d;
+    }
+
+    .boton-secundario:hover {
+      background-color: #545b62;
+    }
+
+    .boton-secundario:active {
+      background-color: #3d4246;
+    }
