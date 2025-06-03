@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,17 +16,45 @@
                 Turno: Jugador X
             </div> 
 
+            <div class="seccion-principal">
+                <!-- Historial de X -->
+                <div class="historial-container">
+                    <div class="caja-puntuacion historial-box">
+                        <div class="titulo-puntuacion">Jugador X</div>
+                        <div class="numero-puntuacion" id="puntuacionX">0</div>
+                        <div class="etiqueta-puntuacion">victorias</div>
+                        <ul id="x-history" class="history-list"></ul>
+                    </div>
+                </div>
+
+                <!-- Tablero de juego -->
+                <div class="contenedor-tablero">
+                    <div class="tablero">
+                        <button class="celda c1" id="c1"></button>
+                        <button class="celda c2" id="c2"></button>
+                        <button class="celda c3" id="c3"></button>
+                        <button class="celda c4" id="c4"></button>
+                        <button class="celda c5" id="c5"></button>
+                        <button class="celda c6" id="c6"></button>
+                        <button class="celda c7" id="c7"></button>
+                        <button class="celda c8" id="c8"></button>
+                        <button class="celda c9" id="c9"></button>
+                    </div>
+                </div>
+
+                <!-- Historial de O -->
+                <div class="historial-container">
+                    <div class="caja-puntuacion historial-box">
+                        <div class="titulo-puntuacion">Jugador O</div>
+                        <div class="numero-puntuacion" id="puntuacionO">0</div>
+                        <div class="etiqueta-puntuacion">victorias</div>
+                        <ul id="o-history" class="history-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empates debajo del tablero -->
             <div class="seccion-puntuacion">
-                <div class="caja-puntuacion">
-                    <div class="titulo-puntuacion">Jugador X</div>
-                    <div class="numero-puntuacion" id="puntuacionX">0</div>
-                    <div class="etiqueta-puntuacion">victorias</div>
-                </div>
-                <div class="caja-puntuacion">
-                    <div class="titulo-puntuacion">Jugador O</div>
-                    <div class="numero-puntuacion" id="puntuacionO">0</div>
-                    <div class="etiqueta-puntuacion">victorias</div>
-                </div>
                 <div class="caja-puntuacion">
                     <div class="titulo-puntuacion">Empates</div>
                     <div class="numero-puntuacion" id="puntuacionEmpates">0</div>
@@ -34,24 +62,10 @@
                 </div>
             </div>
 
-            <div class="contenedor-tablero">
-                <div class="tablero">
-                    <button class="celda c1" id="c1"></button>
-                    <button class="celda c2" id="c2"></button>
-                    <button class="celda c3" id="c3"></button>
-                    <button class="celda c4" id="c4"></button>
-                    <button class="celda c5" id="c5"></button>
-                    <button class="celda c6" id="c6"></button>
-                    <button class="celda c7" id="c7"></button>
-                    <button class="celda c8" id="c8"></button>
-                    <button class="celda c9" id="c9"></button>
-                </div>
-            </div>
-
             <div class="estado-juego">
                 <!-- El estado del juego aparecerá aquí -->
             </div>
-
+            
             <div class="controles">
                 <button class="boton">Nueva Partida</button>
                 <button class="boton boton-secundario">Reiniciar Marcador</button>
@@ -59,6 +73,6 @@
             
         </div>
     </div>
-    
+    <script src="juego.js"></script>
 </body>
 </html>

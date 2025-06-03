@@ -1,175 +1,281 @@
-
 /* Estilos generales */
 * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      padding: 40px 20px;
-      display: flex;
-      justify-content: center;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
 
+.contenedor {
+    width: 100%;
+    max-width: 800px; /* Aumentado para acomodar los historiales */
+}
+
+.contenedor-juego {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+}
+
+.titulo-juego {
+    color: #007bff;
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.jugador-actual {
+    background-color: #007bff;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+
+/* Nueva sección principal con historiales y tablero */
+.seccion-principal {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.historial-container {
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.historial-box {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor-tablero {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    width: 300px;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.celda {
+    width: 100%;
+    height: 90px;
+    background-color: white;
+    border: none;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.celda:hover {
+    background-color: #f0f0f0;
+}
+
+.celda.x {
+    color: #dc3545;
+}
+
+.celda.o {
+    color: #007bff;
+}
+
+/* Sección de puntuación (para empates) */
+.seccion-puntuacion {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.caja-puntuacion {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    min-width: 100px;
+}
+
+.titulo-puntuacion {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.numero-puntuacion {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.etiqueta-puntuacion {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Historial de partidas */
+.history-list {
+    list-style-type: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 10px;
+    flex-grow: 1;
+}
+
+.history-list li {
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.history-list li span:first-child {
+    font-weight: bold;
+}
+
+#x-history li {
+    border-left: 4px solid #dc3545;
+}
+
+#o-history li {
+    border-left: 4px solid #0d6efd;
+}
+
+/* Estado del juego y controles */
+.estado-juego {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    min-height: 30px;
+}
+
+.ganador {
+    color: #28a745;
+}
+
+.empate {
+    color: #ffc107;
+}
+
+.controles {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.boton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+.boton:active {
+    background-color: #004085;
+}
+
+.boton-secundario {
+    background-color: #6c757d;
+}
+
+.boton-secundario:hover {
+    background-color: #545b62;
+}
+
+.boton-secundario:active {
+    background-color: #3d4246;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.winning-cell {
+    background-color: rgba(40, 167, 69, 0.3) !important;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
     .contenedor {
-      width: 100%;
-      max-width: 600px;
+        max-width: 600px;
     }
-
-    .contenedor-juego {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      text-align: center;
+    
+    .seccion-principal {
+        flex-direction: column;
+        align-items: center;
     }
-
-    .titulo-juego {
-      color: #007bff;
-      font-size: 36px;
-      margin-bottom: 20px;
-      font-weight: bold;
+    
+    .historial-container {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 20px;
     }
-
-    .jugador-actual {
-      background-color: #007bff;
-      color: white;
-      border-radius: 20px;
-      padding: 10px 20px;
-      display: inline-block;
-      font-weight: bold;
-      margin-bottom: 30px;
-      font-size: 18px;
+    
+    .history-list {
+        max-height: 150px;
     }
-
+    
     .seccion-puntuacion {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
     }
-
+    
     .caja-puntuacion {
-      background-color: #f8f9fa;
-      border: 2px solid #dee2e6;
-      border-radius: 8px;
-      padding: 15px;
-      flex: 1;
-      text-align: center;
-      min-width: 100px;
+        width: 100%;
+        margin-bottom: 10px;
     }
-
-    .titulo-puntuacion {
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .numero-puntuacion {
-      font-size: 24px;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 5px;
-    }
-
-    .etiqueta-puntuacion {
-      color: #666;
-      font-size: 14px;
-    }
-
-    .contenedor-tablero {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 30px;
-    }
-
-    .tablero {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5px;
-      width: 300px;
-      background-color: #333;
-      padding: 5px;
-      border-radius: 10px;
-    }
-
-    .celda {
-      width: 100%;
-      height: 90px;
-      background-color: white;
-      border: none;
-      font-size: 36px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    .celda:hover {
-      background-color: #f0f0f0;
-    }
-
-    .celda.x {
-      color: #dc3545;
-    }
-
-    .celda.o {
-      color: #007bff;
-    }
-
-    .estado-juego {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 30px;
-      min-height: 30px;
-    }
-
-    .ganador {
-      color: #28a745;
-    }
-
-    .empate {
-      color: #ffc107;
-    }
-
-    .controles {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .boton {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .boton:hover {
-      background-color: #0056b3;
-    }
-
-    .boton:active {
-      background-color: #004085;
-    }
-
-    .boton-secundario {
-      background-color: #6c757d;
-    }
-
-    .boton-secundario:hover {
-      background-color: #545b62;
-    }
-
-    .boton-secundario:active {
-      background-color: #3d4246;
-    }
+}
